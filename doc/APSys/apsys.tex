@@ -1,0 +1,52 @@
+\include{apsysinclude}
+\begin{document}
+\title{DNN paper outline}
+\author{Marco Maohua Zhu}
+\date{March 6, 2014}
+
+\maketitle
+\acmblank{}
+
+
+
+\section{Introduction}
+
+Stochastic gradient descent is a widely used method for deep neural network training. \cite{QuocLe2011} \\
+Left blank because this is an outline.
+
+\section{Background}
+
+DNN is hot in machine learning research. SGD is the most common training algorithm but it is difficult to tune and parallelize. CG and L-BFGS, though more complicated, now can be used thanks to the availability of high performance multi-core CPUs, GPUs and computer clusters.\\
+Challenge: too many network parameters, hard to compute.\\
+We need an optimized implementation on suitable (heterogeneous) platforms.
+
+\section{Motivation}
+
+There are several available architectures to build a heterogeneous system for deep learning.\\
+It is not trivial to map deep learning algorithms on heterogeneous systems.\\
+Researchers and companies need an analysis of advantages and bottlenecks of each platform given the deep learning task.
+
+\section{Mainstream architectures}
+
+An introduction to multi-core CPU(SIMD in CPU, SSE/AVX), APU and discrete GPU architecture.
+
+\section{Implementation and optimization}
+
+How we map the algorithm to APU and discrete GPU.
+
+\section{Evaluation results and analysis}
+
+Performance, power and performance per watt. Present bottlenecks of each platform.
+
+\section{Further analysis}
+
+If there is an alternative choice which seems better, do an experiment.
+
+\section{Conclusion}
+
+Insights.
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

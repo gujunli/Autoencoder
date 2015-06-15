@@ -1,0 +1,40 @@
+﻿Build started 2013/11/8 17:30:25.
+     1>Project "H:\projects\autoencoder\C\autoencoder\autoencoder.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt initialize.cpp loadData.cpp OptimizeAutoencoder.cpp train.cpp
+         train.cpp
+     1>train.cpp(69): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>train.cpp(100): warning C4244: '+=' : conversion from 'floatType' to 'int', possible loss of data
+     1>train.cpp(124): warning C4244: '+=' : conversion from 'floatType' to 'int', possible loss of data
+     1>train.cpp(169): warning C4244: '+=' : conversion from 'floatType' to 'int', possible loss of data
+         OptimizeAutoencoder.cpp
+         loadData.cpp
+         initialize.cpp
+     1>initialize.cpp(17): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>initialize.cpp(25): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(33): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(61): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(66): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>initialize.cpp(69): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(75): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>initialize.cpp(90): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(95): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>initialize.cpp(100): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>initialize.cpp(103): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TC /errorReport:prompt lbfgs.c
+         lbfgs.c
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"H:\projects\autoencoder\C\autoencoder\x64\Debug\autoencoder.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"H:\projects\autoencoder\C\autoencoder\x64\Debug\autoencoder.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\projects\autoencoder\C\autoencoder\x64\Debug\autoencoder.lib" /MACHINE:X64 x64\Debug\initialize.obj
+         x64\Debug\lbfgs.obj
+         x64\Debug\loadData.obj
+         x64\Debug\OptimizeAutoencoder.obj
+         x64\Debug\train.obj
+         LINK : H:\projects\autoencoder\C\autoencoder\x64\Debug\autoencoder.exe not found or not built by the last incremental link; performing full link
+         autoencoder.vcxproj -> H:\projects\autoencoder\C\autoencoder\x64\Debug\autoencoder.exe
+     1>Done Building Project "H:\projects\autoencoder\C\autoencoder\autoencoder.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:17.02

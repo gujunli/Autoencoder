@@ -1,0 +1,311 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2012 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2012,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2012} with
+% \usepackage[nohyperref]{icml2012} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage{icml2012} 
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Appearing in''
+% \usepackage[accepted]{icml2012}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Submission and Formatting Instructions for APSys 2014}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Implementation and Evaluation of Deep Neural Networks (DNN) on Mainstream Heterogeneous Systems}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2012
+% package.
+\icmlauthor{Your Name}{email@yourdomain.edu}
+\icmladdress{Your Fantastic Institute,
+            314159 Pi St., Palo Alto, CA 94306 USA}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+\icmladdress{Their Fantastic Institute,
+            27182 Exp St., Toronto, ON M6H 2T1 CANADA}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{boring formatting information, machine learning, ICML}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+Proposed in 2006, Deep neural networks (DNN) extend traditional neural networks to have deep layers with high dimension of parameters (millions to billions).
+Since then, DNN models have demonstrated breakthrough learning power and significant recognition accuracy in various applications, including image classification, voice recognition and document retrieval etc.
+Thesedays DNN combined with Big Data input are leading the new direction in large scale object recognition.
+However training very large DNN models with vast amount of data takes weeks to train, which poses great challenge in parallel system design to provide the required computing power.
+Latest hardware implementation has resorted to heterogeneous systems armed with GPUs to leverage the data and computing parallelism.
+
+There are various heterogeneous processors and systems including discrete CPU with GPUs and APUs-chip level integrated CPU+GPU heterogeneous processors.
+In this paper, we explore the implementation of DNN kernels on different heterogenous platforms and provide systematic evaluation including performance, power and performance per watt efficiency.
+Specifically we implement two mainstream DNN kernels Multi-Layer Perceptron (MLP) and Autoencoder on various AMD and Intel APUs, AMD and Nvidia GPUs, and provide detailed evaluation and comparison.
+Evaluations results show that dGPU are x faster than APUs but with y times more power consumption.
+In the terms of system efficiency, APU are z times in performance per watt efficiency.
+This paper further conduct bottleneck analysis on various platforms including data transfer overheads comparison and CPU and GPU task division.
+\end{abstract} 
+
+\section{Introduction}
+Deep neural networks (DNN) are emerging as the large scale object recognition. DNN Has demonstrated the highest accuracy in image and voice recognition.
+
+Mainstream DNN kernels include convolutional neural networks (CNN), autoencoder, multiple-layer receptron (MLP).
+The deep autoencoder is one approach to nonlinear feature extraction from unlabeled data, which can be used in applications such as computer vision and content-based image retrieval.
+To train a deep autoencoder, stochastic gradient descent methods, or SGDs are often used. Despite the convenience to implement, SGDs present many disadvantages when a many-layer network is trained with limited amounts of data.
+Two mainstream methods were proposed to address the problems induced by SGDs. One of them is to pre-train each layer of the deep autoencoder as a simple autoencoder\cite{Hinton2006}. The alternative is to train the deep autoencoder with second order optimization algorithms, such as Conjugate gradient (CG) and Limited memory BFGS (L-BFGS)\cite{QuocLe2011}.
+However, the advanced methods in the latter approach are not only with a higher time complexity but also much more complicated to implement than SGDs. Thus, a bad implementation of CG or L-BFGS can easily lead to slower convergence than SGDs.
+Fortunately, these algorithms are better than SGDs in scalability and now can be well implemented thanks to high performance multi-core CPUs, general purpose GPUs and computer clusters.
+
+
+%DNN is hot in machine learning research.\cite{QuocLe2011} SGD is the most common training algorithm but it is difficult to tune and parallelize. CG and L-BFGS, though more complicated, now can be used thanks to the availability of high performance multi-core CPUs, GPUs and computer clusters.\\
+%Challenge: too many network parameters, hard to compute.\\
+%We need an optimized implementation on suitable (heterogeneous) platforms.
+
+\section{Motivation}
+
+%\section{Mainstream architectures}
+
+An introduction to multi-core CPU(SIMD in CPU, SSE/AVX), APU and discrete GPU architecture.
+
+There are several available architectures to build a heterogeneous system for deep learning.
+It is not trivial to map deep learning algorithms on heterogeneous systems.
+Researchers and companies need an analysis of advantages and bottlenecks of each platform given the deep learning task.
+
+
+
+\section{DNN Models and Implementation}
+We pick the most used two DNN kernels-MLP in voice recognition and Autoencoder used in image and document retrieval to implement and evaluate the performance on various heterogeneous platforms.
+\subsection{MLP Model}
+%MLP architecture introduction and application scenarios
+Multi-Layer Perceptron (MLP) refers to multi-layer fully connected neural networks and are used for supervised learning.
+It was proposed in xx and get popular with voice recognition these days.
+MLP decreases voice recognition error rate by 20-30\%\cite{microsoft}, which basically make the voice recognition useable for realtime cross language translation.
+MLP represents the fundamental computing patterns of DNN, which includes layers of matrix multiplication followed by non-linear activation functions (sigmoid, hyperbolic tangent etc.) at each layer.
+MLP is usually trained by back prorogation algorithm. 
+The complete training process includes iterations of feed prorogation and back prorogation process.
+Feed prorogation takes a batch of input data and propagates through layers of matrix multiplication with weight matrixes and pass through sigmoid functions.
+From computing points of view, it is majorally layers of matrix multiplication. Until reaching the last layer, a cost/erros is calculated by comparing the difference between output with the right answers (labels).
+With the cost functions, a gradient is calculated whose opposite direction (gradient decent) points to where the network will converged to a minimum.
+Back prorogation thus refers to back forward the error from last layer to previous layers and calculate the gradients for each layer. Then the weight matrix will be modified with the gradient decent.
+Both the gradient calculation and the weight update process are by nature matrix multiplication.
+When implementing MLP, we can leverage the existing libraries for matrix multiplication, that is CuBlas for Nvidia GPUs, AMDCLBlas for AMD GPUs and MKL for Intel CPUs.
+We choose sigmoid function for activation, which is implemented as a separate simple kernel.
+
+We implement a nine-layer MLP model with \emph{x parameters}, and 1024 as input layer size, 7 successive of hidden layers each with 2048 neurons and output layer size with 9304.
+Such models are the scale of what industry adopt these days. \emph{(Do we have reference? can we talk about it?)}
+The MLP performance evaluation on various platform can reflect the acceleration speed of DNN basics on each platform.
+
+\subsection{Autoencoder Model}
+Autoencoder was first proposed by Geofferey Hinton in 2006\cite{Hinton2006} and achieved significant improvement in
+Nowadays it is popular at pre-training for feature extraction and document and image retrieval.
+An autoencoder is a un-supervised fully connected neural network structure that learns a hidden layer as a compressed representation of input .
+The learned representation can be understood as extracted feature from each input data.
+%The hidden layer is fully connected with input layers.  supposed to be capable to be used by the autoencoder to reconstruct the input.
+Different from other DNN models, the autoencoder tries to generate a reconstruction $h(x)$ with the features.
+$h(x)$ that meets the condition $h(x)\approx x$ where $x$ denotes the input of the network.
+Thus, training the autoencoder is to minimize the Euclidean distance between the input and the construction, which is the cost function as shown in equation\ref{equ: autoencoder}.
+
+\begin{equation}
+		%$$\min\limits_{W,b,c} \sum_{i=1}^{n} \Vert \sigma(W^{T}\sigma(Wx^{(i)}+b)+c)-x^{(i)}\Vert ^{2} $$
+     \min\limits_{W,b,c} \sum_{i=1}^{n} \Vert \sigma(W^{T}\sigma(Wx^{(i)}+b)+c)-x^{(i)}\Vert ^{2}
+     \label{equ: autoencoder}
+    \end{equation}
+where $W$, $b$ and $c$ are network parameters, $n$ denotes the size of the training data.
+
+
+We implement a three-layer(3072-6144-1024) autoencoder as a representative case, shown as in figure\ref{fig:autoencoder}, which by standard will be considered as a deep autoencoder model.
+The model includes \emph{xx parameters}.
+%We choose $\sigma (z) = tanh(z) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$ as activation function.
+\begin{figure}[h]
+\centering
+\includegraphics[width = 8cm]{figure/autoencoder.pdf}
+\caption{Autoencoder network architecture with reconstruction layers}
+\label{fig:autoencoder}
+\end{figure}
+
+To train the autoencoder, or to get it converged to a global minima, three training algorithms are commonly used, including stochastic gradient descent method(SGD), Conjugate gradient(CG) and limited memory BFGS(L-BFGS) algorithm.
+As pointed out in latest pioneer papers\cite{Hinton2006,LBFGS}, for deep autoencoder with a small number of hidden layers layers, L-BFGS algorithm works better to find global minima without extra pre-training process.
+Furthermore, L-BFGS presents good performance and scalability on autoencoders thus it is popular in Big Data training on large scale of system\cite{QuocLe2011,ngICML2013,}.
+%it is usually difficult to train the network with SGDs because the weights are either trapped in local minima or not effectively modified.\cite{Hinton2006}
+%This issue can be addressed by pre-training or advanced back propagation algorithms like Conjugate gradient(CG) and limited memory BFGS(L-BFGS) algorithm \cite{LBFGS}.
+%Specifically, for shallower deep autoencoder(only one hidden layer between the code layer and the input layer), the neural network can be trained by back propagation algorithms without pre-training\cite{Hinton2006}.
+%On one hand, SGDs show no advantage over CG and L-BFGS for such autoencoder training tasks except that SGDs are easy to implement.
+%\subsection{Parallel Implementation on Various Processors}
+
+The L-BFGS algorithm works with line search methods as the following four steps:
+%1) L-BFGS stores the weight matrixes from previous m steps; 
+%2) Calculate a step direction using the history of previous m steps and modify the weights using a step length;
+%3) Call autoencoder to calculate the new gradients and get new cost;
+%4) L-BFGS checks if the step length in 2) satisfies the line search constraints, save this step's weights into the history, go to 2. Otherwise, go back to 2.
+1 Calculate a step direction using the history of previous m steps by L-BFGS algorithm.
+2 Store the weights as a backup.
+3 Test a step length on the direction calculated in 1 by modifying the weights using this step length. Call autoencoder's forward and back prorogation to calculate the new gradients and new cost.
+4 If the step length in 3 satisfies the line search constraints, save this step's weights and gradients, go to 1. Otherwise, load the backup and go to 3.
+
+The autoencoder forward and backward prorogation is similar to MLP, thus we use the same matrix multiplication libraries for each platforms.
+L-BFGS training process requires storage of m (m=6 in this paper) steps of weight matrixes on CPU, weight matrixes and gradients of all layers on GPU.
+Weight matrix increase quadratically with input data size. That might quickly become a bottleneck for limited device memory of GPUs.
+For example, when the input data size equals to x, the total data storage exceeds yGB.
+For each iteration, data transfer happens to transfer weight matrix from CPU to GPU and gradients from GPU to CPU.
+Due to the above state limitations, we map LBFGS algorithm to CPU and leverage CPU's memory to store the history weights and gradients.
+%L-BFGS algorithm majorally does blablabla, matches well to CPU computing. 
+Research\cite{QuocLe2011} designed a parallel version only achieved 2x speedup on GPU.
+
+This paper looks to provide insight on autoencoder implementation on heterogeneous platforms and evaluate the efficiency.
+Through autoencoder training process we can also examine the bottleneck of memory space limitation and data transfer on different platforms.
+For heterogeneous platforms, workloads mixed with CPU and GPU compute by theory can make better use of available hardware resources.
+Autoencoder training process will explore the computing efficiency and tradeoff between CPU and GPU compute ratio to provide insight to build machine learning system.
+%Furthermore due to the mix of CPU feature computing together with GPU feature computing, the evaluation will also provide  
+%The investigation of autoencoder acceleration on each platform can reflect the large scale of cluster training. 
+
+
+\section{Evaluation and Results Analysis}
+Following the methodology stated in previous section, we implement MLP and autoencoder+L-BFGS training on the two categories of heterogenous platforms: integrated APUs and distributed GPU.
+We pick up the competitive commodity processors with most close theoretical throughput at each category from AMD, Intel and Nvidia.
+\begin{description}
+  \item[APU:]  We evaluated latest market available APU processors including AMD Kaveri (856GFLOPS, TDP 95watt) and Intel IvyBridge i7-4770k (848GFLOPS,TDP 84watt). 
+  \item[GPU:]  We pick up nowadays' mainstream customer end GPU cards including AMD HD7970 (3789GFLOPS, TDP 250watt) and Nvidia GTX780 (3977GFLOPS, TDP 250watt). 
+\end{description}
+The evaluation provides the performance of per unit training process on each platform.
+In order to provide insight for system efficiency, we also provide realtime power consumption and performance per watt matrices.
+For APU processors, we capture realtime power traces are captured using external ammeter. 
+GPU's power supply include both power lane and PCIe, which is difficult to measure. Thus we use maximum power for GPUs.  
+
+Performance, power and performance per watt. Present bottlenecks of each platform.
+  \begin{figure}%[thb]
+            \centering
+            \addtocounter{subfigure}{0}
+            \subfloat[Average absolute prediction error.]
+            {\label{Phenom:a}\includegraphics[width=1\linewidth]{figure/MLP_performance.pdf}}
+            \vspace{0.5cm}
+            \subfloat[Standard deviation of the absolute prediction error.]
+            {\label{Phenom:b}\includegraphics[width=1\linewidth]{figure/PerfPerWattMLP.pdf}}
+            \caption{The average absolute prediction error on the Phenom-II 1090T processor.}
+            \label{fig:Phenom}
+    \end{figure}
+    
+      \begin{figure}%[thb]
+            \centering
+            \addtocounter{subfigure}{0}
+            \subfloat[Average absolute prediction error.]
+            {\label{Phenom:a}\includegraphics[width=1\linewidth]{figure/autoencoder_performance.pdf}}
+            \vspace{0.5cm}
+            \subfloat[Standard deviation of the absolute prediction error.]
+            {\label{Phenom:b}\includegraphics[width=1\linewidth]{figure/PerfPerWattAutoencoder.pdf}}
+            %{\label{Phenom:b}\includegraphics[width=1\linewidth]{figure/rodinia2.pdf}}
+            \caption{The average absolute prediction error on the Phenom-II 1090T processor.}
+            \label{fig:Phenom}
+    \end{figure}
+
+Bottleneck for autoendoer, storage requirement analysis for different image input.
+Figure\ref{fig:datatransfer} presents the data transfer overhead for autoencoder, with different input data size and mini-batch sizes.
+
+
+\section{Further Analysis}
+\subsection{BP Weight Transpose}
+%\subsection{L-BFGS training algorithm}
+\emph{Zhen Lin fill in the data and review}
+Back prorogation requires the weight matrix to be transposed during weight update process, which will decrease the performance of matrix multi-plication.
+There are a few ways how to deal with it. For CPU+GPU heterogenous platforms, there are three ways to implement, with GPU transposing the matrix before call MM library, with CPU transpose the matrix in parallel when GPU is computing and directly leveraging the MM library that will deal with transpose inside the library.
+To provide insights what is the best implementation on each platform, we compare the performance on the three schemes between APU and GPUs.
+As shown in figure\ref{fig:transpose}, the best performance differs for different platform and commodity processors.
+For AMD APU Kaveri, the best implementation is blabla.
+For AMD GPU, the best implementation lies with GPU transposes the weight matrix before matrix multi-plication. The data transfer overheads kill the advantage of CPU transposing it while GPU computes.
+AMD GPU library computes the pre-transpose matrix results a x\% slow down compared to best best library performance.
+For Nvidia GPU, the best implementation lies with CuBlas directly. minor performance lost. While for GPU and GPU transposing matrix suffers x\% and y\% slow down accordingly. 
+%and CPU transposing it su
+ 
+\begin{figure}[h]
+\centering
+\includegraphics[width = .5\textwidth]{figure/sgemm_trans2.pdf}
+\caption{Comparison of three different schemes for back prorogation process on AMD APU, AMD GPU and Nvidia GPU.}
+\label{fig:transpose}
+\end{figure}
+
+\subsection{Data transfer overheads}
+DNN training computing requires CPU prepares the data and share with GPU for computing.
+GPU has vast computing power to accelerate the kernel computation. However data transfer overheads tend to slow down the final speedup.
+For dGPU platforms, DMA is used to copy large chunk of data from CPU host memory to dGPU's device memory in an interrupted manner.
+%, this
+%mechanism usually involved interrupting the CPU to complete the task.
+PCIe devices allow dGPU to communicate fine grained data block directly to the host CPU with a very limited performance.
+%They are specific to PCIe communication and don't necessarily generalize to shared memory based
+%heterogeneous architectures.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width = .5\textwidth]{figure/dataTransfer.pdf}
+%\caption{Comparison of data transfer overheads on different platforms.}
+%\label{fig:datatransferscheme}
+%\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width = .5\textwidth]{figure/dataTransfer.pdf}
+\caption{Analysis of data transfer overhead for autoencoder with different input data size and mini-batch sizes}
+\label{fig:datatransfer}
+\end{figure}
+
+
+
+APU provides the zero-copy mechanism \cite{AMDguide} for GPU and CPU share data directly through CPU's host memory, thus avoiding copying data during
+communication.
+Latest heterogeneous designs are adopting a single address space enabling the GPU to access the
+same virtual address space as the CPU, such as 2014 launched AMD Kaveri\cite{Kaveri}.
+However different from direct access to GPU's device memory, zero-copy uses different buses which are 30\%-40\% slower than device memory\cite{junli2013, AMDguide}.
+Specially iGPU uses the non-coherent Direct Access Bus for all incoherent memory traffic, which mostly includes graphics-related traffic.
+To keep the GPU caches coherent with the CPU caches, there is an interconnect between the GPU and the directory. All general purpose memory traffic (requests to the CPU-GPU shared address space) generated in GPGPU applications must use this interconnect and first access the directory before completing the request to stay coherent with the CPU caches.
+Thus zero-copy mechanism has the trade off between data transfer overhead saving and available memory bandwidth.
+We provide detailed data transfer overhead comparison between dGPU and APU's zero copy.
+
+Data transfer and zero-copy mechanism on APU.
+Focus data transfer overhead
+Try 64*64 image input
+How can APU minimize/hide the overhead?
+along with different image size and minibatch size, what is the data transfer overhead trend on different devices?
+
+\section{Conclusion and Future Work}
+
+Insights.
+APU server is more efficient than dGPUs people are using these days.
+%if we could have APU server or have a theoretical model, provide some system level comparison (4 APU node server v.s. dGPU)
+\bibliographystyle{plain}
+\bibliography{apsys2014reference}
+\end{document}
+

@@ -1,0 +1,22 @@
+% Use standard two-column Latex article class with 
+% smaller margins and blank space for copyright notice
+
+\documentclass[twocolumn,notitlepage,11pt,letter]{article}
+
+% For pdflatex
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+% Default margins are too big
+% Magic below sets it to 1 inch all around
+\setlength\oddsidemargin{+0.075in}
+\setlength\evensidemargin{+0.075in}
+\setlength\textwidth{6.5in}
+\setlength\topmargin{-0.5in}
+\setlength\textheight{8.5in}
+\setlength\columnsep{0.33in}
+
+% Blank space for ACM to add copyright notice to .pdf file
+\usepackage{float}
+\def\acmblank{\begin{figure}[b]\vspace{1in}\end{figure}}
+

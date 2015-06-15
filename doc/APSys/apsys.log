@@ -1,0 +1,80 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2014.3.6)  10 MAR 2014 09:48
+entering extended mode
+**apsys.tex
+(E:\autoencoder\doc\APSys\apsys.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for loaded.
+\@input{apsysinclude.aux}
+(E:\autoencoder\doc\APSys\apsysinclude.tex
+(D:\CTEX\MiKTeX\tex\latex\base\article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(D:\CTEX\MiKTeX\tex\latex\base\size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(D:\CTEX\MiKTeX\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count87
+\float@exts=\toks14
+\float@box=\box26
+\@float@everytoks=\toks15
+\@floatcapt=\box27
+))
+
+LaTeX Warning: Unused global option(s):
+    [letter].
+
+(E:\autoencoder\doc\APSys\apsys.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 7.
+
+Underfull \hbox (badness 2970) in paragraph at lines 33--33
+[]\OT1/cmr/bx/n/14.4 Implementation and op-ti-
+ []
+
+(E:\autoencoder\doc\APSys\apsys.bbl [1
+
+
+
+
+]) [2
+
+]
+(E:\autoencoder\doc\APSys\apsys.aux) ) 
+Here is how much of TeX's memory you used:
+ 300 strings out of 495355
+ 3416 string characters out of 3183883
+ 51301 words of memory out of 3000000
+ 3534 multiletter control sequences out of 15000+200000
+ 7926 words of font info for 28 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 25i,7n,23p,290b,207s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on apsys.dvi (2 pages, 2996 bytes).
